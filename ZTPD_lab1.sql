@@ -1,4 +1,6 @@
-?????CREATE TYPE samochod AS OBJECT (
+--1
+
+CREATE TYPE samochod AS OBJECT (
     MARKA       VARCHAR2(20),
     MODEL       VARCHAR2(20),
     KILOMETRY   NUMBER,
@@ -15,6 +17,8 @@ INSERT INTO samochody values (NEW samochod('Ford','Escord', 25000, DATE'1994-07-
 INSERT INTO samochody values (NEW samochod('Nissan','Skyline', 250000, DATE'1999-07-01', 150000));
 
 
+--2
+
 select * from samochody;
 
 create table wlasciciele(
@@ -27,6 +31,9 @@ desc wlasciciele;
 
 INSERT INTO wlasciciele VALUES ('Kowalska','Anna',NEW samochod('Fiat','Panda', 100000, DATE'1997-07-01', 5000));
 INSERT INTO wlasciciele VALUES ('Kowalski','Jan',NEW samochod('Ford','Escord', 25000, DATE'1994-07-01', 30000));
+
+
+--3
 
 select * from wlasciciele;
 
@@ -52,6 +59,9 @@ desc samochod;
 
 SELECT s.marka, s.cena, s.wartosc() FROM samochody s;
 
+
+--4
+
 ALTER TYPE samochod ADD MAP MEMBER FUNCTION odwzoruj RETURN NUMBER CASCADE INCLUDING TABLE DATA;
 
 create or replace type body samochod as
@@ -67,6 +77,9 @@ create or replace type body samochod as
 end;
 
 SELECT * FROM SAMOCHODY s ORDER BY VALUE(s);
+
+
+--5
 
 CREATE TYPE wlasciciel AS OBJECT (
     IMIE       VARCHAR2(20),
@@ -95,6 +108,7 @@ SET s.osoba = (
 --=== KOLEKCJE ===
 
 --6
+
 SET SERVEROUTPUT ON
 DECLARE
 TYPE t_przedmioty IS VARRAY(10) OF VARCHAR2(20);
@@ -124,6 +138,7 @@ DBMS_OUTPUT.PUT_LINE('Liczba elementow: ' || moje_przedmioty.COUNT());
 END;
 
 --7
+
 SET SERVEROUTPUT ON
 DECLARE
 TYPE t_przedmioty IS VARRAY(10) OF VARCHAR2(20);
@@ -153,6 +168,7 @@ DBMS_OUTPUT.PUT_LINE('Liczba elementow: ' || moje_ksiazki.COUNT());
 END;
 
 --8
+
 DECLARE
 TYPE t_wykladowcy IS TABLE OF VARCHAR2(20);
 moi_wykladowcy t_wykladowcy := t_wykladowcy();
@@ -192,6 +208,7 @@ DBMS_OUTPUT.PUT_LINE('Liczba elementow: ' || moi_wykladowcy.COUNT());
 END;
 
 --9
+
 DECLARE
 TYPE t_miesiace IS TABLE OF VARCHAR2(20);
 moje_miesiace t_miesiace := t_miesiace();
@@ -231,6 +248,7 @@ DBMS_OUTPUT.PUT_LINE('Liczba elementow: ' || moje_miesiace.COUNT());
 END;
 
 --10
+
 CREATE TYPE jezyki_obce AS VARRAY(10) OF VARCHAR2(20);
 /
 CREATE TYPE stypendium AS OBJECT (
@@ -277,6 +295,7 @@ WHERE e.column_value = 'BAZY DANYCH';
 
 
 --11
+
 CREATE TYPE koszyk_produktow AS TABLE OF VARCHAR2(20);
 /
 CREATE TYPE zakupy AS OBJECT (
@@ -363,7 +382,9 @@ dbms_output.put_line(trabka.graj('glosno');
 dbms_output.put_line(fortepian.graj);
 END;
 
+
 --13
+
 CREATE TYPE istota AS OBJECT (
  nazwa VARCHAR2(20),
  NOT INSTANTIABLE MEMBER FUNCTION poluj(ofiara CHAR) RETURN CHAR )
@@ -387,6 +408,7 @@ BEGIN
  DBMS_OUTPUT.PUT_LINE( KrolLew.poluj('antylopa') );
 END;
 
+
 --14
 
 DECLARE
@@ -402,7 +424,8 @@ BEGIN
  -- saksofon := TREAT( instrument('saksofon','tra-taaaa') AS instrument_dety);
 END;
 
---15
+--
+15
 
 CREATE TABLE instrumenty OF instrument;
 INSERT INTO instrumenty VALUES ( instrument('tamburyn','brzdek-brzdek') );
@@ -453,11 +476,13 @@ CREATE TYPE ZESPOL AS OBJECT (
 );
 /
 
+
 --18
 
 CREATE OR REPLACE VIEW ZESPOLY_V OF ZESPOL
 WITH OBJECT IDENTIFIER(ID_ZESP)
 AS SELECT ID_ZESP, NAZWA, ADRES FROM ZESPOLY;
+
 
 --19
 
@@ -480,6 +505,7 @@ CREATE OR REPLACE TYPE BODY PRACOWNIK AS
  RETURN PRZEDMIOTY.COUNT();
  END ILE_PRZEDMIOTOW;
 END;
+
 
 --20
 
