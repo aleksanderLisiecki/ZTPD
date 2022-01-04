@@ -26,6 +26,10 @@ public class KursAkcji {
 		this.obrot = obrot;
 	}
 
+	public static boolean kursZamknieciaWiekszyOdKursuOtwarcia(double kursOtwarcia, double kursZamkniecia){
+		return kursZamkniecia > kursOtwarcia;
+	}
+
 	@Override
 	public String toString() {
 		return "KursAkcji   [spolka=" + spolka + ",\tmarket=" + market
